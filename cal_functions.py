@@ -3,6 +3,7 @@
 import datetime
 import pickle
 import os.path
+import googleapiclient
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -54,9 +55,7 @@ def list_calendar_events(calendar_id, min_date):
         print('No upcoming events found.')
     else:
         print('Found ' + str(len(events)) + ' events')
-    for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        #print(start, event['summary'])
+
     return events
 
 def list_HP_calendar_events(calendar_id, min_date):
@@ -122,5 +121,5 @@ def remove_eventlist_from_calendar(eventlist, calendar_id):
         try:
             service.events().delete(calendarId=calendar_id,eventId=event['id']).execute()
         except googleapiclient.errors.HttpError:
-            print("Failed to delete event ID [" + event_id + "]")
+            print("Failed to delete event ID [" + event['id'] + "]")
     print(str(len(eventlist)) + " events deleted")
