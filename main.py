@@ -59,7 +59,7 @@ def get_dropin_links(url):
                 activity_response = requests.get(links_dict[title], headers=headers)
                 if activity_response.status_code == 200:
                     activity_soup = BeautifulSoup(activity_response.text, "lxml")
-                    activity_link = "https://recreation.fortsask.ca" + activity_soup.find("div",{"class":"col-sm-9 hidden-xs"}).find("a")['href']
+                    activity_link = "https://recreation.fortsask.ca" + activity_soup.find("div",{"class":"media hidden-xs"}).find("a")['href']
                     activity_link = activity_link.split('?')[0]
                     links_dict[title] = activity_link
                 else:
@@ -77,9 +77,10 @@ def get_event_type(bs_class):
     "calendar-bar-color-16": "Harbour Pool",
     "calendar-bar-color-17": "Municipal Election",
     "calendar-bar-color-18": "Public Engagement",
-    "calendar-bar-color-19": "Shell Theatre",
-    "calendar-bar-color-110": "Sportsplex",
-    "calendar-bar-color-111": "Waste and Recycling Events"
+    "calendar-bar-color-19": "Recreation Centre",
+    "calendar-bar-color-110": "Shell Theatre",
+    "calendar-bar-color-111": "Sportsplex",
+    "calendar-bar-color-112": "Waste and Recycling Events"
     }
     return switch.get(bs_class, "")
 
